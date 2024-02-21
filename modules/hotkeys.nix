@@ -87,8 +87,9 @@ let
   # Turn all options in this module into an attribute sets for
   # programs.plasma.files.
   hotkeys =
-    let items =
-      (map commandToHotkey (builtins.attrValues cfg.hotkeys.commands));
+    let
+      items =
+        (map commandToHotkey (builtins.attrValues cfg.hotkeys.commands));
     in
     lib.foldr (a: b: a // b) { Data.DataCount = builtins.length items; }
       (lib.imap1 (idx: hotkey: hotkeyToSettings (hotkey idx) idx) items);
